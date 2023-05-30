@@ -48,7 +48,7 @@
                 </div>
                 <button class="deleteChild" @click="deleteChild(item.id)">Удалить</button>
         </div>
-        <button class="sendAllForm">Сохранить</button>
+        <button class="sendAllForm" @click="goPrevios">Сохранить</button>
     </div>
 </div>
 </div>
@@ -58,6 +58,7 @@
 import { ref } from 'vue';
 import { useStore } from 'vuex';
 import { v4 as uuidv4 } from 'uuid';
+import { useRouter } from 'vue-router';
 
 export default{
     setup(){
@@ -69,6 +70,7 @@ export default{
         const childUser = ref()
         const nameUser = ref()
         const ageUser = ref()
+        const router = useRouter()
 
         const childrenAdd = ()=> {
             childUser.value = {
@@ -94,10 +96,14 @@ export default{
                 name: nameUser.value,
                 age: ageUser.value
             }]
-            console.log(store.state.infoUser)
         }
 
-        return{openAddChild, childrenAdd, childrenAge, childrenName, deleteChild, nameUser, ageUser, addInfoUser}
+        const goPrevios = () => {
+            router.push('/previos')
+        }
+
+
+        return{openAddChild, childrenAdd, childrenAge, childrenName, deleteChild, nameUser, ageUser, addInfoUser, goPrevios}
     }
 }
 </script>
@@ -211,6 +217,7 @@ export default{
 }
 
 .childAdd button{
+    cursor: pointer;
     display: flex;
     align-items: center;
     text-align: center;
@@ -359,6 +366,7 @@ export default{
 }
 
 .sendAllForm{
+    cursor: pointer;
     position: absolute;
     height: 2.5rem;
     width: 7rem;
